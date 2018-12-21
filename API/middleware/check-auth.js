@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const autenticacion = require('../tools/autenticacion');
 //Verify the token and request data from it
 module.exports = (req,res,next) =>{
     try{
@@ -7,8 +8,6 @@ module.exports = (req,res,next) =>{
         req.userData = decoded;
         next();
     }catch(error){
-        return res.status(401).json({
-            message: 'Auth failed'
-        });
+        autenticacion.falloAutenticacion(res,error);
     }
 };

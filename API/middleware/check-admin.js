@@ -1,11 +1,11 @@
 //Checks if the user has the rights for an action
+const autenticacion = require('../tools/autenticacion');
+
 module.exports = (req,res,next) =>{
-    if(req.userData.role === "admin"){
+    if(req.userData.rol === "admin"){
         next();
     }
     else{
-        return res.status(401).json({
-            message: 'Not authorize for this'
-        });
+        autenticacion.permisoAutenticacion(res);
     }
 };

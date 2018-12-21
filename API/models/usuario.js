@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 var tournamentSchema = mongoose.Schema({
     nombre: {type: String, require:true},
     apellido: {type: String, require:true},
-    identificador: {type: Map, of: String, require:true},
+    identificador: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Identificador'}],
     imagenPerfil: {type: String, require: false},
     secreto: {type:String},
     correo: {

@@ -5,15 +5,13 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 //Handlers
-//const productRoutes = require('./routes/products');
-
-
+const usuarioRoutes = require('./API/routes/usuarios');
 
 //Database connection
-//mongoose.connect(
-  //  'mongodb://shop-user:5MEGjBgDulqbVW8Z@storedatabase-shard-00-00-o0sy6.mongodb.net:27017,storedatabase-shard-00-01-o0sy6.mongodb.net:27017,storedatabase-shard-00-02-o0sy6.mongodb.net:27017/test?ssl=true&replicaSet=StoreDatabase-shard-0&authSource=admin&retryWrites=true', {
-    // useNewUrlParser: true 
-  //});
+mongoose.connect(
+   'mongodb://shop-user:5MEGjBgDulqbVW8Z@storedatabase-shard-00-00-o0sy6.mongodb.net:27017,storedatabase-shard-00-01-o0sy6.mongodb.net:27017,storedatabase-shard-00-02-o0sy6.mongodb.net:27017/test?ssl=true&replicaSet=StoreDatabase-shard-0&authSource=admin&retryWrites=true', {
+     useNewUrlParser: true 
+});
 
   
 //Comments for GET POST and other
@@ -43,7 +41,7 @@ app.use((req,res,next)=>{
 });
 
 //Routes that handle requests
-//app.use('/products', productRoutes);
+app.use('/usuarios', usuarioRoutes);
 
 
 //Error catching
