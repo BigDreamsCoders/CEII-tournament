@@ -1,4 +1,5 @@
 const Usuario = require('../models/usuario');
+
 const estandar = require('../tools/estandar');
 const autenticacion = require('../tools/autenticacion');
 
@@ -21,7 +22,10 @@ exports.usuarios_get_personal = (req,res,next)=>{
 exports.usuarios_registrar = (req,res,next)=>{
     const iden = req.body.identificador;
     console.log(iden)
-    Usuario.find({correo: req.body.correo})
+    Usuario.find({$or: [
+        {correo: req.body.correo}, 
+        {identificador: {$in: iden} }
+    ]})
     .exec()
     .then(usuario =>{
         if(usuario.length>= 1){
@@ -45,14 +49,16 @@ exports.usuarios_registrar = (req,res,next)=>{
                     .then(respuesta =>{
                         console.log(respuesta);
                         res.status(201).json({
-                            message: 'Usuario creado',
+                            mensaje: 'Usuario creado',
                             usuario: {
+                                _id: respuesta._id,
                                 nombre: respuesta.nombre,
                                 apellido: respuesta.apellido,
                                 correo: respuesta.correo,
                                 identificador: respuesta.identificador,
                                 rol: respuesta.rol
-                            }
+                            },
+                            estado: 200
                         })
                     })
                 }
@@ -64,7 +70,7 @@ exports.usuarios_registrar = (req,res,next)=>{
     });
 };
 
-exports.usuario_ingresar = (req,res,next)=>{
+exports.usuarios_ingresar = (req,res,next)=>{
     Usuario.findOne({correo: req.body.correo}).exec().then(doc =>{
     if(!doc){
         autenticacion.falloAutenticacion(res);
@@ -91,3 +97,12 @@ exports.usuario_ingresar = (req,res,next)=>{
     estandar.errorChecker(res,err);
 })
 };
+
+exports.usuarios_borrar = (req,res,next)=>{
+    const id = req.params.idUsuario;
+    Usuario.remove({_id: id}).exec().then(result => {
+        estandar.exitoQuery(res,"Usuario borrado");
+    }).catch(err => {
+        estandar.errorChecker(res,err);
+    });   
+}

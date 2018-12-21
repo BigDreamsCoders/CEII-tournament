@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var tournamentSchema = mongoose.Schema({
+var participanteSchema = mongoose.Schema({
     nick: {type: String, require:true},
     control: {type: String, require:false},
     registradoEl: {type: Date, default: Date.now},
@@ -8,4 +8,4 @@ var tournamentSchema = mongoose.Schema({
     informacion: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario'},
 });
 
-module.exports = mongoose.model('Participante',tournamentSchema);
+module.exports = mongoose.model('Participante',participanteSchema);

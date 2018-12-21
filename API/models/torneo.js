@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var tournamentSchema = mongoose.Schema({
+var torneoSchema = mongoose.Schema({
     nombre: {type: String, require:true},
     facultad: {type: String, require:true},
     creadoEl: {type: Date, default: Date.now},
@@ -13,4 +13,4 @@ var tournamentSchema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Torneo',tournamentSchema);
+module.exports = mongoose.model('Torneo',torneoSchema);

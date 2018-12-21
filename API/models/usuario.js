@@ -1,11 +1,19 @@
 const mongoose = require('mongoose');
 
-var tournamentSchema = mongoose.Schema({
+
+var documentoSchema = mongoose.Schema(
+    {
+    documento: {type: String},
+    valor: {type: String}
+    },
+    { _id: false });
+
+var usuarioSchema = mongoose.Schema({
     nombre: {type: String, require:true},
     apellido: {type: String, require:true},
-    identificador: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Identificador'}],
+    identificador: [documentoSchema],
     imagenPerfil: {type: String, require: false},
-    secreto: {type:String},
+    secreto: {type:String, require: false},
     correo: {
         type: String, 
         require: true, 
@@ -13,4 +21,6 @@ var tournamentSchema = mongoose.Schema({
     rol: {type:String, deafult:"comun"}
 });
 
-module.exports = mongoose.model('Usuario',tournamentSchema);
+
+
+module.exports = mongoose.model('Usuario',usuarioSchema);
