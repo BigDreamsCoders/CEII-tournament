@@ -5,7 +5,7 @@ var torneoSchema = mongoose.Schema({
     facultad: {type: String, require:true},
     creadoEl: {type: Date, default: Date.now},
     fechaEvento: {type: Date, require:true},
-    lugarEvento: {type: Map, of: String, require:true},
+    lugarEvento: {type: String, require:true},
     precioEntrada: {type:Number, require:true},
     cupoEvento:{type:Number,require:true},
     participantes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Participante'}],

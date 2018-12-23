@@ -8,7 +8,7 @@ module.exports.errorChecker = function(res,error) {
 
 module.exports.nullChecker = function(res) { 
     res.status(404).json({
-        mensaje: 'Element not found',
+        mensaje: 'Elemento no encontrado',
         estado: 404
     });
 }

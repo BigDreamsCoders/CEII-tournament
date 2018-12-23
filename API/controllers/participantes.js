@@ -9,7 +9,7 @@ exports.participantes_get_all = (req,res,next)=>{
             estandar.errorChecker(res,err);
         }
     })
-    .select('_id nick registradoEl informacion control pagoCancelado')
+    .select('_id nick registradoEl informacion llevaControl pagoCancelado')
     .exec()
     .then(docs => {
         res.status(200).json({
@@ -20,11 +20,11 @@ exports.participantes_get_all = (req,res,next)=>{
                     nick: doc.nick,
                     registradoEl: doc.registradoEl,
                     informacion: doc.informacion,
-                    control: doc.control,
+                    llevaControl: doc.llevaControl,
                     pagoCancelado: doc.pagoCancelado,
                     peticion:{
                         tipo: 'GET',
-                        url: 'http://localhost:3000/API/participante/'+doc._id
+                        url: 'http://localhost:3000/API/participantes/'+doc._id
                     }   
                 }
             }),
@@ -36,9 +36,9 @@ exports.participantes_get_all = (req,res,next)=>{
 };
 
 exports.participantes_get_one = (req,res,next)=>{
-    const id = req.params.participanteId;
+    const id = req.params.idParticipante;
     Product.findById(id)
-    .select('_id nick registradoEl control pagoCancelado informacion')
+    .select('_id nick registradoEl llevaControl pagoCancelado informacion')
     .populate('informacion', 'correo identificador')
     .exec()
     .then(doc=>{
@@ -47,7 +47,7 @@ exports.participantes_get_one = (req,res,next)=>{
                 _id: doc._id,
                 nick: doc.nick,
                 registradoEl: doc.registradoEl,
-                control: doc.control,
+                llevaControl: doc.llevaControl,
                 pagoCancelado: doc.pagoCancelado,
                 correo: doc.informacion.correo,
                 identificador: doc.informacion.identificador
@@ -146,3 +146,10 @@ exports.participantes_delete = (req,res,next)=>{
         estandar.errorChecker(res,err);
     });   
 }
+
+//Automatizacion
+/*
+expors.participantes_post_agregar_participante = (req,res,next)=>{
+    const id = req.params.productId;
+    const user_id = req.userData.userId;
+}; */

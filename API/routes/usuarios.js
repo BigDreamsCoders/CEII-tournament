@@ -5,11 +5,11 @@ const checkAuth = require('../middleware/check-auth');
 const checkAdmin = require('../middleware/check-admin');
 
 
-const UsuariosController = require('../controllers/usuarios');
+const UsuarioController = require('../controllers/usuarios');
 
-router.get('/personal', checkAuth, UsuariosController.usuarios_get_personal);
-router.post('/registrar',checkAuth, checkAdmin, UsuariosController.usuarios_registrar);
-router.post('/login', checkAuth, checkAdmin, UsuariosController.usuarios_ingresar);
-router.delete('/:idUsuario',checkAuth, checkAdmin, UsuariosController.usuarios_borrar);
+router.get('/personal', checkAuth, UsuarioController.usuarios_get_personal);
+router.post('/registrar',checkAuth, checkAdmin, UsuarioController.usuarios_registrar);
+router.post('/login', checkAuth, checkAdmin, UsuarioController.usuarios_ingresar);
+router.delete('/:idUsuario',checkAuth, checkAdmin, UsuarioController.usuarios_borrar);
 
 module.exports = router;
