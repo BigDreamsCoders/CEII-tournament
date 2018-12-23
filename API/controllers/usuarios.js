@@ -58,7 +58,7 @@ exports.usuarios_registrar = (req,res,next)=>{
                                 identificador: respuesta.identificador,
                                 rol: respuesta.rol
                             },
-                            estado: 200
+                            estado: 201
                         })
                     })
                 }

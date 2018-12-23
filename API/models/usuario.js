@@ -9,10 +9,10 @@ var documentoSchema = mongoose.Schema(
     { _id: false });
 
 var usuarioSchema = mongoose.Schema({
-    nombre: {type: String, require:true},
-    apellido: {type: String, require:true},
+    nombre: {type: String},
+    apellido: {type: String},
     identificador: [documentoSchema],
-    imagenPerfil: {type: String, require: false},
+    imagenPerfil: {type: String},
     secreto: {type:String, require: false},
     correo: {
         type: String, 
@@ -20,7 +20,5 @@ var usuarioSchema = mongoose.Schema({
         match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/},
     rol: {type:String, deafult:"comun"}
 });
-
-
 
 module.exports = mongoose.model('Usuario',usuarioSchema);

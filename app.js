@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 
 //Handlers
 const usuarioRoutes = require('./API/routes/usuarios');
+const participanteRoutes = require('./API/routes/participantes');
+const torneoRoutes = require('./API/routes/torneos');
 
 //Database connection
 mongoose.connect(
@@ -41,7 +43,9 @@ app.use((req,res,next)=>{
 });
 
 //Routes that handle requests
-app.use('/usuarios', usuarioRoutes);
+app.use('/API/usuarios', usuarioRoutes);
+app.use('/API/participantes', participanteRoutes);
+app.use('/API/torneos', torneoRoutes);
 
 
 //Error catching
@@ -54,10 +58,8 @@ app.use((req,res,next)=> {
 app.use((error, req,res,next)=>{
     res.status(error.status  || 500);
     res.json({
-        err:{
-            message: error.message,
-            code: error.status 
-        }
+        mensaje: error.message,
+        estado: error.status 
     });
 });
 
