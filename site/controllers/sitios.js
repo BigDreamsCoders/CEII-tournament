@@ -1,7 +1,15 @@
 exports.render_index =  (req, res, next) => {
-    res.render('index', { title: 'Hey', mensaje: 'Index there!', texto:'Json h2', parrafo:'Texto de parrafo'});
+    res.status(200).render('index', { 
+        title: 'Hey', 
+        mensaje: 'Index here!', 
+        texto:'Texto de intro', 
+        parrafo:'Texto de index'});
 };
 
 exports.render_torneos =  (req, res, next) => {
-    res.render('torneos', { title: 'Hey', mensaje: 'Torneos here!', texto:'Json h2', parrafo:'Texto de parrafo'});
+    res.status(200).render('torneos', { 
+    title: 'Torneo', 
+    mensaje: 'Torneos here!', 
+    texto:'Torneos aqui',
+    parrafo:'Parrafo de torneos'});
 };

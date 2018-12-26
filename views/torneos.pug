@@ -9,3 +9,7 @@ html
         div
             h2=texto
             p=parrafo
+        h1 For each
+        - const names = ["DOM", "SOP", "MARK"]
+        each n,i in names
+            p=n+" - "+i

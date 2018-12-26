@@ -39,7 +39,7 @@ const TorenoController = require('../controllers/torneos');
 
 router.get('/', checkAuth, TorenoController.torneos_get_all);
 router.get('/:idTorneo',checkAuth,TorenoController.torneos_get_one);
-router.post('/', checkAuth, checkAdmin, upload.single('productImage'),TorenoController.torneos_post_crear);
+router.post('/', checkAuth, checkAdmin, upload.single('imagenTorneo'),TorenoController.torneos_post_crear);
 router.delete('/:idTorneo', checkAuth, checkAdmin, TorenoController.torneos_delete)
 
 module.exports = router;

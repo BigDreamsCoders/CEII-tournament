@@ -75,23 +75,25 @@ exports.usuarios_ingresar = (req,res,next)=>{
     if(!doc){
         autenticacion.falloAutenticacion(res);
     }
-    bcrypt.compare(req.body.secreto, doc.secreto, (err, result)=>{
-        if(err){
-            estandar.errorChecker(res,err);
-        }else{
-            if(result){
-                const token = jwt.sign({
-                    idUsuario: doc._id,
-                    correo: doc.correo,
-                    rol: doc.rol
-                },"secret_13asAZ32S",{
-                    expiresIn: "1h"
-                });
-                autenticacion.exitoAutenticacion(res,token);
+    else{
+        bcrypt.compare(req.body.secreto, doc.secreto, (err, result)=>{
+            if(err){
+                estandar.errorChecker(res,err);
+            }else{
+                if(result){
+                    const token = jwt.sign({
+                        idUsuario: doc._id,
+                        correo: doc.correo,
+                        rol: doc.rol
+                    },"secret_13asAZ32S",{
+                        expiresIn: "1h"
+                    });
+                    autenticacion.exitoAutenticacion(res,token);
+                }
+                else{ autenticacion.falloAutenticacion(res);}
             }
-            else{ autenticacion.falloAutenticacion(res);}
-        }
-    });
+        });
+    }
 })
 .catch(err =>{
     estandar.errorChecker(res,err);

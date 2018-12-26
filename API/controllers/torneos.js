@@ -83,6 +83,7 @@ exports.torneos_get_one = (req,res,next)=>{
 };
 
 exports.torneos_post_crear = (req,res,next)=>{
+    const id = req.userData.idUsuario;
     const torneo = new Torneo({
         nombre: req.body.nombre,
         facultad: req.body.facultad,
@@ -91,7 +92,8 @@ exports.torneos_post_crear = (req,res,next)=>{
         precioEntrada: req.body.precioEntrada,
         cupoEvento: req.body.cupoEvento,
         participantes: [],
-        imagenTorneo: req.file.path
+        imagenTorneo: req.file.path,
+        creadoPost: id
     });
     torneo.save().then(resultado=>{
         res.status(201).json({

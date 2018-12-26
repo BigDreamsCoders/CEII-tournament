@@ -9,6 +9,7 @@ var torneoSchema = mongoose.Schema({
     precioEntrada: {type:Number, require:true},
     cupoEvento:{type:Number,require:true},
     participantes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Participante'}],
+    creadorPost:{ type: mongoose.Schema.Types.ObjectId, ref: 'Usuario'},
     imagenTorneo: {type: String, require: true}
 });
 
