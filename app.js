@@ -1,31 +1,46 @@
-const express = require('express');
-const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
-//Handlers
-//const productRoutes = require('./routes/products');
+const express = require('express');
+const app = express();
+
+//Conexion a la base datos
+mongoose.connect(
+    'mongodb://shop-user:5MEGjBgDulqbVW8Z@storedatabase-shard-00-00-o0sy6.mongodb.net:27017,storedatabase-shard-00-01-o0sy6.mongodb.net:27017,storedatabase-shard-00-02-o0sy6.mongodb.net:27017/test?ssl=true&replicaSet=StoreDatabase-shard-0&authSource=admin&retryWrites=true', {
+      useNewUrlParser: true 
+ });
 
 
+//Rutas para la API
+const usuarioRoutes = require('./API/routes/usuarios');
+const participanteRoutes = require('./API/routes/participantes');
+const torneoRoutes = require('./API/routes/torneos');
 
-//Database connection
-//mongoose.connect(
-  //  'mongodb://shop-user:5MEGjBgDulqbVW8Z@storedatabase-shard-00-00-o0sy6.mongodb.net:27017,storedatabase-shard-00-01-o0sy6.mongodb.net:27017,storedatabase-shard-00-02-o0sy6.mongodb.net:27017/test?ssl=true&replicaSet=StoreDatabase-shard-0&authSource=admin&retryWrites=true', {
-    // useNewUrlParser: true 
-  //});
+//Rutas para la pagina
+const paginaRoutes = require('./site/routes/sitio');
 
-  
-//Comments for GET POST and other
-app.use(morgan('dev'));
-//Public file uploads
+
+/* Caminos habilitados */
+// Todos los archivos en views unido
+app.set('views', path.join(__dirname, 'views'));
+// Carpeta publica habilitada
+app.use(express.static(path.join(__dirname, 'public')));
+// Ruta de las imagenes publicas
 app.use('/uploads',express.static('uploads'));
-//Simple url bodies
+
+app.set('view engine', 'pug');
+  
+//Ayuda a comentar que tipo de request se esta realizando
+app.use(morgan('dev'));
+
+//Acepta cuerpos de url simple
 app.use(bodyParser.urlencoded({extended: false}));
-//Read json
+//Lee jsons
 app.use(bodyParser.json());
 
-//Avoid CORS
+//Para evitar problemas de CORS
 app.use((req,res,next)=>{
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -42,24 +57,27 @@ app.use((req,res,next)=>{
     next();
 });
 
-//Routes that handle requests
-//app.use('/products', productRoutes);
+//Rutas para la API
+app.use('/API/usuarios', usuarioRoutes);
+app.use('/API/participantes', participanteRoutes);
+app.use('/API/torneos', torneoRoutes);
 
+//Rutas para la pagina
+app.use('/', paginaRoutes);
 
-//Error catching
+//Si nada se encuentra se corre
 app.use((req,res,next)=> {
     const error = new Error('Not found');
     error.status = 404;
     next(error);
 });
 
+//En caso que nada se encuentre
 app.use((error, req,res,next)=>{
     res.status(error.status  || 500);
     res.json({
-        err:{
-            message: error.message,
-            code: error.status 
-        }
+        mensaje: error.message,
+        estado: error.status 
     });
 });
 

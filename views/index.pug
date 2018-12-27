@@ -1,0 +1,14 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title=title
+        link(rel="stylesheet", href="/css/main.css")
+    article
+        include segments/header.pug
+        main
+            h1(id="header")=mensaje
+            div
+                h2=texto
+                p=parrafo
+        include segments/footer
