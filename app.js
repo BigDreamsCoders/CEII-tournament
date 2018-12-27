@@ -24,11 +24,10 @@ const paginaRoutes = require('./site/routes/sitio');
 
 /* Caminos habilitados */
 // Todos los archivos en views unido
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'site/views'));
 // Carpeta publica habilitada
 app.use(express.static(path.join(__dirname, 'public')));
-// Ruta de las imagenes publicas
-app.use('/uploads',express.static('uploads'));
+
 
 app.set('view engine', 'pug');
   
