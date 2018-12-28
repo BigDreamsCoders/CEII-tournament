@@ -94,7 +94,7 @@ exports.torneos_post_crear = (req,res,next)=>{
         precioEntrada: req.body.precioEntrada,
         cupoEvento: req.body.cupoEvento,
         participantes: [],
-        imagenTorneo: req.file.path,
+        imagenTorneo: "uploads\\"+req.file.filename,
         creadoPost: id
     });
     torneo.save().then(resultado=>{

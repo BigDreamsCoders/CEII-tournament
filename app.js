@@ -28,7 +28,7 @@ app.set('views', path.join(__dirname, 'site/views'));
 // Carpeta publica habilitada
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+// Se habilita Pug
 app.set('view engine', 'pug');
   
 //Ayuda a comentar que tipo de request se esta realizando
