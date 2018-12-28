@@ -45,6 +45,7 @@ exports.torneos_get_one = (req,res,next)=>{
     .select('_id nombre facultad creadoEl fechaEvento lugarEvento precioEntrada cupoEvento imagenTorneo participantes')
     .populate('participantes', '_id registradoEl nick llevaControl pagoCancelado informacion')
     .populate('informacion', 'correo')
+    .populate('organizadoPor', 'correo')
     .exec()
     .then(doc=>{
         if(doc){
@@ -58,6 +59,7 @@ exports.torneos_get_one = (req,res,next)=>{
                 cupoEvento: doc.cupoEvento,
                 lugarEvento: doc.lugar,
                 imagenTorneo: doc.imagenTorneo,
+                organizadoPor: doc.creadoPost,
                 participantes: doc.map(docparticipante =>{
                     return {
                         registradoEl: docparticipante.registradoEl,
@@ -103,7 +105,7 @@ exports.torneos_post_crear = (req,res,next)=>{
             fechaEvento: resultado.fechaEvento,
             precioEntrada: resultado.precioEntrada,
             cupoEvento: resultado.cupoEvento,
-            lugarEvento: resultado.lugar,
+            lugarEvento: resultado.lugarEvento,
             imagenTorneo: resultado.imagenTorneo,
             peticion:{
                 tipo: 'GET',
