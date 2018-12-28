@@ -100,11 +100,13 @@ exports.usuarios_ingresar = (req,res,next)=>{
 })
 };
 
-exports.usuarios_borrar = (req,res,next)=>{
+exports.usuarios_delete = (req,res,next)=>{
     const id = req.params.idUsuario;
     Usuario.remove({_id: id}).exec().then(result => {
         estandar.exitoQuery(res,"Usuario borrado");
     }).catch(err => {
         estandar.errorChecker(res,err);
     });   
-}
+};
+
+exports.usuarios_

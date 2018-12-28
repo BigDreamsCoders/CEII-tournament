@@ -147,9 +147,19 @@ exports.participantes_delete = (req,res,next)=>{
     });   
 }
 
-//Automatizacion
+//Modificar participante
+exports.participantes_patch = (req,res,next) =>{
+    
+};
+//Agregar un campo a participante
+exports.participantes_put = (req,res,next) =>{
+    
+};
+
+//Automatizacion 
 /*
-expors.participantes_post_agregar_participante = (req,res,next)=>{
+exports.participantes_post_agregar_participante = (req,res,next)=>{
     const id = req.params.productId;
     const user_id = req.userData.userId;
-}; */
+};
+*/ 

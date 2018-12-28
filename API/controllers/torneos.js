@@ -148,3 +148,12 @@ exports.torneos_post_inscribir = (req,res,next) =>{
         estandar.errorChecker(res,err);
     });   
 };
+
+//Modificar campos
+exports.torneos_patch = (req,res,next)=>{
+
+};
+//Agregar un campo
+exports.torneos_put = (req,res,next)=>{
+
+};
