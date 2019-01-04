@@ -6,6 +6,32 @@ const autenticacion = require('../tools/autenticacion');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+exports.usuarios_get_all = (req,res,next)=>{
+    const id = req.userData.idUsuario;
+    Usuario.find({}).sort({correo: 1})
+    .select('_id correo nombre apellido identificador')
+    .exec()
+    .then(usuario =>{
+        res.status(200).json({
+            count: usuario.length,
+            usuarios: usuario.map(doc =>{
+                return {
+                    _id: doc._id,
+                    correo: doc.correo,
+                    nombre: doc.nombre,
+                    apellido: doc.apellido,
+                    identificador: doc.identificador,
+                    peticion:{
+                        tipo: 'GET',
+                        url: 'http://localhost:3000/API/usuario/'+doc._id
+                    }
+                }
+            })
+        });
+    }).catch(err => {
+        estandar.errorChecker(res,err);
+    });
+};
 exports.usuarios_get_personal = (req,res,next)=>{
     const id = req.userData.idUsuario;
     Usuario.find({_id:id})
@@ -57,8 +83,7 @@ exports.usuarios_registrar = (req,res,next)=>{
                                 correo: respuesta.correo,
                                 identificador: respuesta.identificador,
                                 rol: respuesta.rol
-                            },
-                            estado: 201
+                            }
                         })
                     })
                 }
@@ -109,4 +134,22 @@ exports.usuarios_delete = (req,res,next)=>{
     });   
 };
 
-exports.usuarios_
+exports.usuarios_patch = (req,res,next)=>{
+    const id = req.params.idTorneo;
+    const opsActualizar = {};
+    for(const opcion of req.body){
+        opsActualizar[opcion.campoActualizar] = opcion.valor;
+    }
+    Usuario.updateOne({_id: id}, { $set : opsActualizar })
+    .exec()
+    .then(resultado => {
+        estandar.exitoQuery(res, "Usuario actualizado")
+    })
+    .catch(err => {
+        errorChecker(res,err);
+    });
+};
+
+exports.usuarios_put = (req,res,next)=>{
+
+};

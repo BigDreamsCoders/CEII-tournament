@@ -4,11 +4,7 @@ const Usuario = require('../models/usuario');
 const estandar = require('../tools/estandar');
 
 exports.participantes_get_all = (req,res,next)=>{
-    Participante.find({}, null,{sort: {nick: 1}}, (err, data)=>{
-        if(err){
-            estandar.errorChecker(res,err);
-        }
-    })
+    Participante.find({}).sort({nick: 1})
     .select('_id nick registradoEl informacion llevaControl pagoCancelado')
     .exec()
     .then(docs => {
@@ -96,8 +92,7 @@ exports.participantes_post_crear = (req,res,next)=>{
                             nick: nuevoparticipante.nick,
                             llevaControl: nuevoparticipante.llevaControl,
                             informacion: nuevoparticipante.informacion
-                        },
-                        estado: 201
+                        }
                     })
                 });
             }
@@ -127,8 +122,7 @@ exports.participantes_post_crear = (req,res,next)=>{
                         nick: nuevoparticipante.nick,
                         llevaControl: nuevoparticipante.llevaControl,
                         informacion: nuevoparticipante.informacion
-                    },
-                    estado: 201
+                    }
                 })
             });
         }
@@ -140,7 +134,7 @@ exports.participantes_post_crear = (req,res,next)=>{
 
 exports.participantes_delete = (req,res,next)=>{
     const id = req.params.idParticipante;
-    Usuario.remove({_id: id}).exec().then(result => {
+    Participante.remove({_id: id}).exec().then(result => {
         estandar.exitoQuery(res,"Participante borrado");
     }).catch(err => {
         estandar.errorChecker(res,err);
@@ -149,7 +143,19 @@ exports.participantes_delete = (req,res,next)=>{
 
 //Modificar participante
 exports.participantes_patch = (req,res,next) =>{
-    
+    const id = req.params.idTorneo;
+    const opsActualizar = {};
+    for(const opcion of req.body){
+        opsActualizar[opcion.campoActualizar] = opcion.valor;
+    }
+    Participante.updateOne({_id: id}, { $set : opsActualizar })
+    .exec()
+    .then(resultado => {
+        estandar.exitoQuery(res, "Participante actualizado")
+    })
+    .catch(err => {
+        errorChecker(res,err);
+    });
 };
 //Agregar un campo a participante
 exports.participantes_put = (req,res,next) =>{

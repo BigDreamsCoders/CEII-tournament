@@ -18,7 +18,8 @@ var usuarioSchema = mongoose.Schema({
         type: String, 
         require: true, 
         match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/},
-    rol: {type:String, deafult:"comun"}
+    rol: {type:String, deafult:"comun"},
+    estadoUsuario: {type: Number, deafult:1}
 });
 
 module.exports = mongoose.model('Usuario',usuarioSchema);

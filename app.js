@@ -14,12 +14,12 @@ mongoose.connect(
 
 
 //Rutas para la API
-const usuarioRoutes = require('./API/routes/usuarios');
-const participanteRoutes = require('./API/routes/participantes');
-const torneoRoutes = require('./API/routes/torneos');
+const usuarioRoutes = require('./API/v1/routes/usuarios');
+const participanteRoutes = require('./API/v1/routes/participantes');
+const torneoRoutes = require('./API/v1/routes/torneos');
 
 //Rutas para la pagina
-const paginaRoutes = require('./site/routes/sitio');
+//const paginaRoutes = require('./site/routes/sitio');
 
 
 /* Caminos habilitados */
@@ -57,12 +57,12 @@ app.use((req,res,next)=>{
 });
 
 //Rutas para la API
-app.use('/API/usuarios', usuarioRoutes);
-app.use('/API/participantes', participanteRoutes);
-app.use('/API/torneos', torneoRoutes);
+app.use('/API/v1/usuarios', usuarioRoutes);
+app.use('/API/v1/participantes', participanteRoutes);
+app.use('/API/v1/torneos', torneoRoutes);
 
 //Rutas para la pagina
-app.use('/', paginaRoutes);
+//app.use('/', paginaRoutes);
 
 //Si nada se encuentra se corre
 app.use((req,res,next)=> {
