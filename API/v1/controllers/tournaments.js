@@ -1,15 +1,11 @@
-const Torneo = require('../models/torneo');
-const Participante = require('../models/participante');
+const Torneo = require('../models/tournament');
+const Participante = require('../models/participant');
 
-const estandar = require('../tools/estandar');
+const estandar = require('../tools/standard-responses');
 
 
 exports.torneos_get_all = (req,res,next)=>{
-    Torneo.find({}, null,{sort: {nombre: 1}}, (err, data)=>{
-        if(err){
-            estandar.errorChecker(res,err);
-        }
-    })
+    Torneo.find({}).sort({fechaEvento: 1})
     .select('_id nombre facultad creadoEl fechaEvento lugarEvento precioEntrada cupoEvento imagenTorneo')
     .exec()
     .then(docs => {
@@ -24,8 +20,8 @@ exports.torneos_get_all = (req,res,next)=>{
                     fechaEvento: doc.fechaEvento,
                     precioEntrada: doc.precioEntrada,
                     cupoEvento: doc.cupoEvento,
-                    lugarEvento: doc.lugar,
-                    imagenTorneo: doc.imagenTorneo,
+                    lugarEvento: doc.lugarEvento,
+                    identificador: doc.identificador,
                     peticion:{
                         tipo: 'GET',
                         url: 'http://localhost:3000/API/torneos/'+doc._id
@@ -45,6 +41,7 @@ exports.torneos_get_one = (req,res,next)=>{
     .select('_id nombre facultad creadoEl fechaEvento lugarEvento precioEntrada cupoEvento imagenTorneo participantes')
     .populate('participantes', '_id registradoEl nick llevaControl pagoCancelado informacion')
     .populate('informacion', 'correo')
+    .populate('organizadoPor', 'correo')
     .exec()
     .then(doc=>{
         if(doc){
@@ -56,9 +53,10 @@ exports.torneos_get_one = (req,res,next)=>{
                 fechaEvento: doc.fechaEvento,
                 precioEntrada: doc.precioEntrada,
                 cupoEvento: doc.cupoEvento,
-                lugarEvento: doc.lugar,
+                lugarEvento: doc.lugarEvento,
                 imagenTorneo: doc.imagenTorneo,
-                participantes: doc.map(docparticipante =>{
+                organizadoPor: doc.creadoPost,
+                participantes: doc.participantes.map(docparticipante =>{
                     return {
                         registradoEl: docparticipante.registradoEl,
                         nick: docparticipante.nick,
@@ -92,7 +90,7 @@ exports.torneos_post_crear = (req,res,next)=>{
         precioEntrada: req.body.precioEntrada,
         cupoEvento: req.body.cupoEvento,
         participantes: [],
-        imagenTorneo: req.file.path,
+        imagenTorneo: "uploads\\"+req.file.filename,
         creadoPost: id
     });
     torneo.save().then(resultado=>{
@@ -103,13 +101,12 @@ exports.torneos_post_crear = (req,res,next)=>{
             fechaEvento: resultado.fechaEvento,
             precioEntrada: resultado.precioEntrada,
             cupoEvento: resultado.cupoEvento,
-            lugarEvento: resultado.lugar,
+            lugarEvento: resultado.lugarEvento,
             imagenTorneo: resultado.imagenTorneo,
             peticion:{
                 tipo: 'GET',
                 url: 'http://localhost:3000/API/torneos/'+resultado._id
-            },
-            estado: 201
+            }
         });
     });
 };
@@ -145,4 +142,27 @@ exports.torneos_post_inscribir = (req,res,next) =>{
     }).catch(err => {
         estandar.errorChecker(res,err);
     });   
+};
+
+//Modificar campos
+exports.torneos_patch = (req,res,next)=>{
+    const id = req.params.idTorneo;
+    const opsActualizar = {};
+    var flag = false;
+    for(const opcion of req.body){
+        opsActualizar[opcion.campoActualizar] = opcion.valor;
+    }
+    Torneo.updateOne({_id: id}, { $set : opsActualizar })
+    .exec()
+    .then(resultado => {
+        estandar.exitoQuery(res, "Torneo actualizado")
+    })
+    .catch(err => {
+        errorChecker(res,err);
+    });
+};
+
+//Agregar un campo
+exports.torneos_put = (req,res,next)=>{
+
 };

@@ -74,7 +74,6 @@ typings/
 
 # FuseBox cache
 .fusebox/
-
 #single file
 client_secret.json
 hojadecalculo.js

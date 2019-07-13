@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var torneoSchema = mongoose.Schema({
+var tournamentSchema = mongoose.Schema({
     nombre: {type: String, require:true},
     facultad: {type: String, require:true},
     creadoEl: {type: Date, default: Date.now},
@@ -8,10 +8,10 @@ var torneoSchema = mongoose.Schema({
     lugarEvento: {type: String, require:true},
     precioEntrada: {type:Number, require:true},
     cupoEvento:{type:Number,require:true},
-    participantes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Participante'}],
-    creadorPost:{ type: mongoose.Schema.Types.ObjectId, ref: 'Usuario'},
+    participantes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Participant'}],
+    creadorPost:{ type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     imagenTorneo: {type: String, require: true}
 });
 
-module.exports = mongoose.model('Torneo',torneoSchema);
+module.exports = mongoose.model('Tournament',tournamentSchema);
 

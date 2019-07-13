@@ -14,22 +14,21 @@ mongoose.connect(
 
 
 //Rutas para la API
-const usuarioRoutes = require('./API/routes/usuarios');
-const participanteRoutes = require('./API/routes/participantes');
-const torneoRoutes = require('./API/routes/torneos');
+const userRoutes = require('./API/v1/routes/users');
+const participantRoutes = require('./API/v1/routes/participants');
+const tournamentRoutes = require('./API/v1/routes/tournaments');
 
 //Rutas para la pagina
-const paginaRoutes = require('./site/routes/sitio');
+//const paginaRoutes = require('./site/routes/sitio');
 
 
 /* Caminos habilitados */
 // Todos los archivos en views unido
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'site/views'));
 // Carpeta publica habilitada
 app.use(express.static(path.join(__dirname, 'public')));
-// Ruta de las imagenes publicas
-app.use('/uploads',express.static('uploads'));
 
+// Se habilita Pug
 app.set('view engine', 'pug');
   
 //Ayuda a comentar que tipo de request se esta realizando
@@ -58,12 +57,12 @@ app.use((req,res,next)=>{
 });
 
 //Rutas para la API
-app.use('/API/usuarios', usuarioRoutes);
-app.use('/API/participantes', participanteRoutes);
-app.use('/API/torneos', torneoRoutes);
+app.use('/API/v1/users', userRoutes);
+app.use('/API/v1/participants', participantRoutes);
+app.use('/API/v1/tournaments', tournamentRoutes);
 
 //Rutas para la pagina
-app.use('/', paginaRoutes);
+//app.use('/', paginaRoutes);
 
 //Si nada se encuentra se corre
 app.use((req,res,next)=> {

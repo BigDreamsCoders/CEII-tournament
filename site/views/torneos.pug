@@ -1,0 +1,41 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title=title
+        link(rel="stylesheet", href="/css/main.css")
+    article
+        include segments/header.pug
+        main
+            h1(id="header")=mensaje
+            p=count
+            if torneos
+                each n in torneos
+                    div(class='column')
+                        div(class='row')
+                            h1
+                                | #{n.nombre}
+                            h2
+                                | #{n.facultad}
+                        div(class='row')
+                            label
+                                | #{n.cupoEvento}
+                            label
+                                -console.log(n);
+                                | #{n.lugarEvento}
+                        div(class='row')
+                            label
+                                - const d = (new Date(n.fechaEvento)).toLocaleString().replace('[<>]',''); 
+                                | Dia del evento: #{d} 
+                            label
+                                | Precio de la entrada: $#{n.precioEntrada}
+                        
+                        a(href=n.peticion.url)
+                            img(src=n.imagenTorneo, alt="")
+            else
+                small
+                | No hay nada que ver aqui...
+
+        include segments/footer
+        
+
