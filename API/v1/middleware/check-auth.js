@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const autenticacion = require('../tools/autenticacion');
+const autenticacion = require('../tools/authentication-responses');
 //Verify the token and request data from it
 module.exports = (req,res,next) =>{
     try{

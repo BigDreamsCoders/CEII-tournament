@@ -35,11 +35,15 @@ const upload = multer({
     ,fileFilter: fileFilter
 });
 
-const TorenoController = require('../controllers/torneos');
+const tournamentController = require('../controllers/tournaments');
 
-router.get('/', checkAuth, TorenoController.torneos_get_all);
-router.get('/:idTorneo',checkAuth,TorenoController.torneos_get_one);
-router.post('/', checkAuth, checkAdmin, upload.single('imagenTorneo'),TorenoController.torneos_post_crear);
-router.delete('/:idTorneo', checkAuth, checkAdmin, TorenoController.torneos_delete)
+router.get('/', checkAuth, tournamentController.torneos_get_all);
+router.get('/:idTorneo',checkAuth,tournamentController.torneos_get_one);
+router.post('/', checkAuth, checkAdmin, upload.single('imagenTorneo'),tournamentController.torneos_post_crear);
+router.delete('/:idTorneo', checkAuth, checkAdmin, tournamentController.torneos_delete);
+router.patch('/:idTorneo', checkAuth, checkAdmin, tournamentController.torneos_patch);
+//TODO
+router.put('/:idTorneo', checkAuth, checkAdmin, tournamentController.torneos_put);
+
 
 module.exports = router;
