@@ -1,7 +1,7 @@
-const Participante = require('../models/participante');
-const Usuario = require('../models/usuario');
+const Participante = require('../models/participant');
+const Usuario = require('../models/user');
 
-const estandar = require('../tools/estandar');
+const estandar = require('../tools/standard-responses');
 
 exports.participantes_get_all = (req,res,next)=>{
     Participante.find({}).sort({nick: 1})

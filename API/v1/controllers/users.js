@@ -1,7 +1,7 @@
-const Usuario = require('../models/usuario');
+const Usuario = require('../models/user');
 
-const estandar = require('../tools/estandar');
-const autenticacion = require('../tools/autenticacion');
+const estandar = require('../tools/standard-responses');
+const autenticacion = require('../tools/authentication-responses');
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');

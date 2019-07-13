@@ -1,7 +1,7 @@
-const Torneo = require('../models/torneo');
-const Participante = require('../models/participante');
+const Torneo = require('../models/tournament');
+const Participante = require('../models/participant');
 
-const estandar = require('../tools/estandar');
+const estandar = require('../tools/standard-responses');
 
 
 exports.torneos_get_all = (req,res,next)=>{

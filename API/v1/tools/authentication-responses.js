@@ -1,7 +1,7 @@
 
 module.exports.falloAutenticacion = function(res){
     res.status(401).json({
-        mensaje: "Fallo la autenticacion",
+        message: "Authentication failed",
     });
 }
 module.exports.exitoAutenticacion = function(res, token){
@@ -12,6 +12,6 @@ module.exports.exitoAutenticacion = function(res, token){
 
 module.exports.permisoAutenticacion = function(res){
     res.status(401).json({
-        mensaje: "No tienes los credeciales para realizar la operacion",
+        message: "You don't have the rights to do such action",
     });
 }
