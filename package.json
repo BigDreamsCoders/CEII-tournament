@@ -24,7 +24,7 @@
   "homepage": "https://github.com/BigDreamsCoders/CEII-tournament#readme",
   "dependencies": {
     "bcrypt": "^3.0.2",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "google-spreadsheet": "^2.0.6",
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.14",
